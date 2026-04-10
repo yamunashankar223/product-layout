@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout - Airnew</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --blue: #2D79FF;
+            --highlight: #00d4ff;
+            --highlight-glow: rgba(0, 212, 255, 0.6);
+            --dark: #333;
+            --light-bg: #f0f7ff;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #e9ecef;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Logout Card Style */
+        .logout-container {
+            background: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .icon-circle {
+            width: 80px;
+            height: 80px;
+            background: var(--light-bg);
+            color: var(--blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin: 0 auto 20px;
+            animation: pulse-blue 2s infinite;
+        }
+
+        h2 {
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            transition: 0.3s;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .btn-logout {
+            background: var(--blue);
+            color: white;
+            box-shadow: 0 4px 15px rgba(45, 121, 255, 0.3);
+        }
+
+        .btn-logout:hover {
+            background: var(--highlight);
+            transform: translateY(-2px);
+        }
+
+        .btn-cancel {
+            background: #eee;
+            color: var(--dark);
+        }
+
+        .btn-cancel:hover {
+            background: #ddd;
+        }
+
+        @keyframes pulse-blue {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(45, 121, 255, 0.4);
+            }
+
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(45, 121, 255, 0);
+            }
+
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(45, 121, 255, 0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="logout-container">
+        <div class="icon-circle">
+            <i class="fa-solid fa-right-from-bracket"></i>
+        </div>
+        <h2>Logging Out?</h2>
+        <p>Are you sure you want to log out of your Airnew account? You will need to login again to access your orders.
+        </p>
+
+        <div class="button-group">
+            <button class="btn btn-logout" onclick="confirmLogout()">Yes, Log Out</button>
+            <button class="btn btn-cancel" onclick="goBack()">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        function confirmLogout() {
+            // Add your logout logic here (e.g., clearing session storage)
+            alert("You have been logged out successfully.");
+            window.location.href = "index.html";
+        }
+
+        function goBack() {
+            // Returns the user to the previous page
+            window.history.back();
+        }
+    </script>
+
+</body>
+
+</html>

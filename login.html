@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Register Free!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            /* We define the main colors as variables for easy updates */
+            --primary-blue: #2D7CFF;
+            --accent-red: #D2001F;
+            --text-dark: #333;
+            --border-gray: #ccc;
+            --bg-light: #f9f9f9;
+        }
+
+        /* --- BASIC RESET & GENERAL STYLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+            /* Clean font matching the design */
+        }
+
+        body {
+            background-color: var(--bg-light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            /* Centers the login block vertically */
+            padding: 20px;
+        }
+
+        /* --- THE MAIN CONTAINER --- */
+        .login-page-wrapper {
+            background-color: white;
+            width: 100%;
+            max-width: 900px;
+            /* Standard width for this type of form */
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            /* Defines the two equal columns */
+            border-radius: 12px;
+            overflow: hidden;
+            /* Ensures contents respect the rounded corners */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            /* Adds the subtle elevation */
+            position: relative;
+        }
+
+        /* --- The Red Curved Element --- */
+        .page-accent-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            background-color: var(--accent-red);
+            /* This complex border-radius creates the distinct upward curve */
+            border-radius: 0 0 100% 0;
+            z-index: 1;
+            /* Sits below the main content */
+        }
+
+        /* --- LEFT COLUMN: Form --- */
+        .left-panel {
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-right: 1px solid #eee;
+            /* Light divider as requested */
+        }
+
+        .title-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .title-area h2 {
+            color: var(--text-dark);
+            font-size: 24px;
+        }
+
+        .title-area .close-btn {
+            font-size: 18px;
+            color: #888;
+            cursor: pointer;
+        }
+
+        /* --- The Form Fields --- */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-gray);
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+            /* Removes browser default focus outline */
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 2px rgba(45, 124, 255, 0.1);
+        }
+
+        /* --- The Action Bar --- */
+        .action-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .login-btn {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 25px;
+            /* Creates the distinct pill shape */
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .login-btn:hover {
+            background-color: #1e62d4;
+        }
+
+        .forgot-link {
+            font-size: 12px;
+            color: #666;
+            text-decoration: none;
+        }
+
+        .forgot-link:hover {
+            text-decoration: underline;
+        }
+
+        /* --- Social Sign-On --- */
+        .social-divider {
+            position: relative;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .social-divider span {
+            background-color: white;
+            padding: 0 10px;
+            font-size: 12px;
+            color: #666;
+            z-index: 2;
+            position: relative;
+        }
+
+        .social-divider:after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: #eee;
+            z-index: 1;
+        }
+
+        .social-button-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            /* Precise spacing between icons */
+            margin-bottom: 25px;
+        }
+
+        .social-icon-btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        /* Match the color palette of each social icon */
+        .google {
+            background-color: #df4a32;
+            color: white;
+        }
+
+        .facebook {
+            background-color: #3b5998;
+            color: white;
+        }
+
+        .instagram {
+            background-color: #c22b72;
+            color: white;
+        }
+
+        .twitter {
+            background-color: #0084b4;
+            color: white;
+        }
+
+        .social-icon-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        /* --- Call to Action --- */
+        .cta-text {
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .cta-text a {
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+
+        .cta-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* --- RIGHT COLUMN: Image & Text --- */
+        .right-panel {
+            background-color: var(--primary-blue);
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            border-radius: 0 12px 12px 0;
+            /* Ensures right-side corners are rounded */
+        }
+
+        .right-panel h3 {
+            font-size: 26px;
+            margin-bottom: 10px;
+        }
+
+        .right-panel p {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .image-placeholder {
+            margin-top: 30px;
+            max-width: 300px;
+            width: 100%;
+        }
+
+        /* This centers the headphones image and makes it responsive */
+        .image-placeholder img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* --- RESPONSIVE DESIGN FOR MOBILE --- */
+        /* Below 768px (tablets and phones), the design collapses to a single column */
+        @media (max-width: 768px) {
+            .login-page-wrapper {
+                grid-template-columns: 1fr;
+                /* Stacks the panels */
+            }
+
+            .left-panel,
+            .right-panel {
+                padding: 40px;
+            }
+
+            .left-panel {
+                border-right: none;
+            }
+
+            /* Removed horizontal divider */
+
+            .right-panel {
+                border-radius: 0 0 12px 12px;
+            }
+
+            /* Corrected rounded corners for stacked view */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-page-wrapper">
+
+        <div class="page-accent-top"></div>
+
+        <div class="left-panel">
+            <div class="title-area">
+                <h2>Register Free!</h2>
+                <span class="close-btn">&#10005;</span>
+            </div>
+
+            <form>
+                <div class="form-group">
+                    <input type="email" placeholder="E-mail" class="form-input">
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Password" class="form-input">
+                </div>
+            </form>
+
+            <div class="action-bar">
+                <a href="index.html" class="login-btn">Login</a>
+
+                <a href="index.html" class="login-btn">Forgot password?</a>
+            </div>
+
+            <div class="social-divider">
+                <span>Or Log in with</span>
+            </div>
+
+            <div class="social-button-container">
+                <a href="#" class="social-icon-btn google"><i class="fab fa-google"></i></a>
+                <a href="#" class="social-icon-btn facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon-btn instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon-btn twitter"><i class="fab fa-twitter"></i></a>
+            </div>
+
+            <p class="cta-text">Not a member? <a href="#">Create New Account</a></p>
+        </div>
+
+        <div class="right-panel">
+            <h3>Login to continue!</h3>
+            <p>Don't have an account? Sign up in just a few minutes.</p>
+            <div class="image-placeholder">
+                <img src="image/logo.jpg" alt="Headphones">
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

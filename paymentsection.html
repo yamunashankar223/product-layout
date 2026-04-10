@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airnew - Magic Sound</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* --- ROOT & THEME STYLES --- */
+        :root {
+            --blue: #2D79FF;
+            --dark: #333;
+            --highlight: #00d4ff;
+            --highlight-glow: rgba(0, 212, 255, 0.6);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #e9ecef;
+        }
+
+        .page-wrapper {
+            max-width: 1200px;
+            margin: 40px auto;
+            background: #fff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            min-height: 90vh;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            padding: 20px 40px;
+            border-bottom: 1px solid #eee;
+            background: #fff;
+            transition: 0.3s;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-group {
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .logo-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+        }
+
+        .logo-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .logo-label {
+            display: block;
+            font-size: 22px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-left: 20px;
+            animation: highlight-pulse 2s infinite ease-in-out;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            font-size: 24px;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            color: var(--blue);
+        }
+
+        .nav-actions i {
+            font-size: 20px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .profile-pic {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        /* --- DROPDOWN STYLE --- */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background: white;
+            border: 1px solid #ddd;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            z-index: 1000;
+            padding: 10px;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 10px;
+            color: white;
+            background: #2D79FF;
+            margin-bottom: 5px;
+            text-decoration: none;
+        }
+
+        /* --- PAYMENT SECTION --- */
+        .payment-container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .checkout-card {
+            display: flex;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            gap: 20px;
+            border: 1px solid #eee;
+        }
+
+        .checkout-card img {
+            width: 200px;
+            border-radius: 10px;
+        }
+
+        .order-box {
+            margin-left: auto;
+            border: 1px solid #ccc;
+            padding: 15px;
+        }
+
+        .payment-box {
+            background: #2d79ff;
+            color: white;
+            width: 300px;
+            margin: 30px auto;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        #form-section {
+            display: none;
+            text-align: center;
+        }
+
+        #success {
+            display: none;
+            text-align: center;
+        }
+
+        /* --- FOOTER --- */
+        .main-footer {
+            background-color: #2d79ff;
+            color: #ffffff;
+            padding: 60px 0 20px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 40px;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes highlight-pulse {
+
+            0%,
+            100% {
+                color: var(--highlight);
+                text-shadow: 0 0 10px var(--highlight-glow);
+                opacity: 1;
+            }
+
+            50% {
+                color: #888;
+                text-shadow: none;
+                opacity: 0.5;
+            }
+        }
+
+        @media (max-width: 850px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100px;
+                left: 0;
+                width: 100%;
+                background: #fff;
+                flex-direction: column;
+                z-index: 1000;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .checkout-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page-wrapper">
+        <nav class="navbar" id="main-nav">
+            <div class="nav-container">
+                <div class="logo-group">
+                    <div class="logo-circle"><img src="image/logo.jpg" alt="Airnew"></div>
+                    <span class="logo-label">Airnew</span>
+                </div>
+
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="product.html">Products</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="blog.html">Blogs</a></li>
+                    <li><a href="aboutus.html">About us</a></li>
+                    <li><a href="contactus.html">Contact us</a></li>
+                </ul>
+
+                <div class="nav-actions">
+                    <div class="profile-wrapper" style="position: relative;">
+                        <img src="image/logo2.jpg" class="profile-pic" alt="User" id="profileBtn">
+                        <div id="profileDropdown" class="dropdown-content">
+                            <p style="font-weight: bold; color: black;">My Account</p>
+                            <a href="accountinformation.html">Account Information</a>
+                            <a href="ordercompletedpage.html">My order</a>
+                            <a href="trackyourpage.html">Tracking page</a>
+                            <a href="password manager.html">Password Manager</a>
+                            <a href="logout.html">Logout</a>
+                        </div>
+                    </div>
+                    <a href="whislist.html"><i class="fa-regular fa-heart"></i></a>
+                    <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a>
+                    <i class="fa-regular fa-bell" id="notifIcon"></i>
+                </div>
+            </div>
+        </nav>
+
+        <div class="payment-container">
+            <h2 style="text-align:center;">Checkout</h2>
+            <div class="checkout-card">
+                <img src="image/ear9.jpg" alt="product">
+                <div>
+                    <p><b>Product:</b> Airpod Pro</p>
+                    <p><b>Price:</b> $29</p>
+                </div>
+                <div class="order-box">
+                    <p>Total: <b>$29</b></p>
+                </div>
+            </div>
+
+            <div class="payment-box" id="paymentBox">
+                <h3>Payment Method</h3>
+                <label><input type="radio" name="pay" checked> Google Pay</label><br>
+                <button style="margin-top:10px; cursor:pointer;" id="okBtn">OK</button>
+            </div>
+
+            <div id="form-section">
+                <h3>Enter Details</h3>
+                <form id="paymentForm">
+                    <input type="text" placeholder="Name" required style="margin-bottom:10px;"><br>
+                    <button type="submit"
+                        style="background:var(--blue); color:white; border:none; padding:10px 20px; cursor:pointer;">Proceed</button>
+                </form>
+            </div>
+
+            <div id="success">
+                <h2>✅ Payment Successful</h2>
+            </div>
+        </div>
+
+        <footer class="main-footer">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <div class="logo-circle" style="width:80px; height:80px;"><img src="image/logo.jpg" alt="Airnew">
+                    </div>
+                    <span class="logo-label" style="margin-left:0;">Airnew</span>
+                </div>
+                <div class="footer-col">
+                    <p>© 2026 airnew. co. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // FIXED DROPDOWN LOGIC
+        const profileBtn = document.getElementById('profileBtn');
+        const profileDropdown = document.getElementById('profileDropdown');
+
+        profileBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isHidden = profileDropdown.style.display === 'none' || profileDropdown.style.display === '';
+            profileDropdown.style.display = isHidden ? 'block' : 'none';
+        });
+
+        // PAYMENT LOGIC
+        document.getElementById("okBtn").onclick = function () {
+            document.getElementById("paymentBox").style.display = "none";
+            document.getElementById("form-section").style.display = "block";
+        };
+
+        document.getElementById("paymentForm").onsubmit = function (e) {
+            e.preventDefault();
+            document.getElementById("form-section").style.display = "none";
+            document.getElementById("success").style.display = "block";
+            setTimeout(() => { window.location.href = "ordercompletedpage.html"; }, 2000);
+        };
+
+        // CLOSE DROPDOWN ON OUTSIDE CLICK
+        document.addEventListener('click', (e) => {
+            if (!profileDropdown.contains(e.target) && e.target !== profileBtn) {
+                profileDropdown.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+
+</html>

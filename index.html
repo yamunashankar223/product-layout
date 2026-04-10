@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airnew - Magic like you've never heard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #2D7CFF;
+            --accent-green: #00D04B;
+            --text-dark: #333;
+            --white: #ffffff;
+            --bg-light: #f9f9f9;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 5%;
+            background: var(--white);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .logo-wrap img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-blue);
+        }
+
+        .logo-wrap span {
+            font-weight: bold;
+            font-style: italic;
+            font-size: 0.8rem;
+        }
+
+        .nav-links {
+            display: none;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 2.5rem;
+            font-weight: 500;
+        }
+
+        .nav-links a.active {
+            color: var(--primary-blue);
+            border-bottom: 2px solid var(--primary-blue);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .search-container {
+            position: relative;
+            display: none;
+        }
+
+        .search-container input {
+            padding: 8px 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            width: 180px;
+        }
+
+        .search-container i {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+        }
+
+        /* Profile Dropdown */
+        .profile-container {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .profile-img {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid #ddd;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background: white;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            width: 160px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .dropdown-menu.show {
+            display: flex;
+        }
+
+        .dropdown-menu a {
+            padding: 12px;
+            text-decoration: none;
+            color: #333;
+            font-size: 0.85rem;
+            border-bottom: 1px solid #f9f9f9;
+        }
+
+        .dropdown-menu a:hover {
+            background: #f0f4ff;
+        }
+
+        /* Logo Wrapper Styling */
+        .logo-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        /* The Image Animation (Glow effect) */
+        .logo-wrap img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 2px solid #ddd;
+            transition: 0.3s;
+            /* Apply the animation here */
+            animation: neonGlow 2s ease-in-out infinite;
+        }
+
+        /* The Text Animation */
+        .logo-wrap span {
+            font-weight: bold;
+            font-style: italic;
+            font-size: 0.8rem;
+            color: #666;
+            animation: textFlicker 2s ease-in-out infinite;
+        }
+
+        /* Keyframes for the Image (Light On/Off) */
+        @keyframes neonGlow {
+
+            0%,
+            100% {
+                filter: brightness(100%) grayscale(100%);
+                border-color: #ddd;
+                box-shadow: none;
+            }
+
+            50% {
+                filter: brightness(120%) grayscale(0%);
+                border-color: var(--primary-blue);
+                box-shadow: 0 0 15px var(--primary-blue);
+            }
+        }
+
+        /* Keyframes for the Text (Flicker effect) */
+        @keyframes textFlicker {
+
+            0%,
+            100% {
+                color: #888;
+                opacity: 0.5;
+            }
+
+            50% {
+                color: var(--primary-blue);
+                opacity: 1;
+                text-shadow: 0 0 5px rgba(45, 124, 255, 0.5);
+            }
+        }
+
+        /* --- HERO --- */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr;
+            padding: 40px 5%;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .hero-text h1 {
+            color: var(--primary-blue);
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
+
+        .hero-text p {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .hero-img img {
+            width: 100%;
+            max-width: 450px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            transition: 0.3s;
+        }
+
+        .btn-blue {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .btn-blue:hover {
+            opacity: 0.9;
+            transform: scale(1.05);
+        }
+
+        /* --- GRIDS --- */
+        .section-title {
+            text-align: center;
+            margin: 50px 0 30px;
+            font-size: 1.5rem;
+        }
+
+        /* .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 0 5%;
+        } */
+
+        .grid {
+            display: grid;
+            /* Forces exactly 4 columns on large screens */
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            padding: 0 5%;
+        }
+
+        /* Responsive adjustment for mobile */
+        @media (max-width: 850px) {
+            .grid {
+                /* Stacks to 1 or 2 columns on mobile for better visibility */
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+
+        .grid {
+            display: grid;
+            /* Default for mobile: 1 column */
+            grid-template-columns: 1fr;
+            gap: 20px;
+            padding: 20px 5%;
+        }
+
+        /* Tablet and Desktop: 4 columns side-by-side */
+        @media (min-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .grid-item {
+            background: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .grid-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .feature-card {
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .feature-card i {
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+        }
+
+        .product-card {
+            border: 1px solid #eee;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            position: relative;
+        }
+
+        .heart-icon {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: var(--primary-blue);
+            cursor: pointer;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: contain;
+            margin: 10px 0;
+        }
+
+        .offer-txt {
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: #444;
+        }
+
+        .price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        /* --- FAQ --- */
+        .faq-wrap {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 0 5%;
+        }
+
+        .faq-item {
+            border-bottom: 1px dashed #ccc;
+            padding: 15px 0;
+        }
+
+        .faq-head {
+            display: flex;
+            justify-content: space-between;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+
+        .faq-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: 0.3s ease-out;
+            color: #666;
+            font-size: 0.85rem;
+            padding-top: 0;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: var(--primary-blue);
+            color: white;
+            padding: 40px 5% 20px;
+            margin-top: 50px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-col h4 {
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+
+        .footer-col p,
+        .footer-col li {
+            list-style: none;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+            opacity: 0.9;
+        }
+
+        /* --- MEDIA QUERIES --- */
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+
+            .search-container {
+                display: block;
+            }
+
+            .hero {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .hero-text h1 {
+                font-size: 3rem;
+            }
+
+            .grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo-wrap">
+            <img src="image/logo.jpg" alt="Logo">
+            <span>Airnew</span>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="#" class="active">Home</a></li>
+            <li><a href="#">Products</a></li>
+            <li><a href="#">Gallery</a></li>
+            <li><a href="#">Blogs</a></li>
+            <li><a href="#">Contact us</a></li>
+            <li><a href="#">About us</a></li>
+        </ul>
+
+        <div class="nav-right">
+            <div class="search-container">
+                <input type="text" placeholder="Search">
+                <i class="fas fa-search"></i>
+            </div>
+            <a href="whislist.html"><i class="far fa-heart" title="Wishlist"></i></a>
+            <a href="cart.html"><i class="fas fa-shopping-cart" title="Cart"></i></a>
+
+
+            <div style="position: relative; display: inline-block;">
+                <i class="fa-regular fa-bell" id="bellBtn" title="Notifications"
+                    style="cursor: pointer; font-size: 1.2rem;"></i>
+                <span
+                    style="position: absolute; top: -2px; right: -2px; background: red; width: 8px; height: 8px; border-radius: 50%;"></span>
+            </div>
+
+            <div id="notifBox"
+                style="display: none; position: fixed; top: 80px; right: 20px; background: #f0f7ff; border-left: 5px solid #2D79FF; padding: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); width: 250px; z-index: 1001; border-radius: 4px;">
+                <p style="margin: 0; font-size: 14px; color: #333;">
+                    🎁 Your Airpad Pro order is out for delivery! Expect it today by 5 PM.
+                </p>
+            </div>
+
+            <div class="profile-container" id="profileBtn">
+                <img src="image/logo2.jpg" alt="Profile" class="profile-img">
+                <div class="dropdown-menu" id="profileDropdown">
+                    <a href="accountinformation.html">My Account</a>
+                    <a href="ordercompletedpage.html">Orders</a>
+                    <a href="trackingpage.html">Tracking Order</a>
+                    <a href="passwordmanager.html">Password Manager</a>
+
+                    <a href="logout.html" style="color:red">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Magic like you've never heard</h1>
+            <p>AirPods deliver an effortless wireless experience, rich high-quality sound, and magical setup — all in a
+                lightweight, in-ear design.</p>
+            <a href="product.html" class="btn btn-blue">Explore now</a>
+            <a href="contactus.html"
+                style="margin-left:15px; color:#333; text-decoration:none; border-bottom:1px solid #333;">Enquiry</a>
+        </div>
+        <div class="hero-img">
+            <img src="image/ear4.jpg" alt="Headphones">
+        </div>
+    </section>
+
+    <h2 class="section-title">Why Choose Us</h2>
+    <div class="grid">
+        <div class="feature-card">
+            <i class="fas fa-headphones-alt fa-2x"></i>
+            <h4>High Quality</h4>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-bullseye fa-2x"></i>
+            <h4>Trusted Platform</h4>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-shipping-fast fa-2x"></i>
+            <h4>Fast Delivery</h4>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-credit-card fa-2x"></i>
+            <h4>Secure Payments</h4>
+        </div>
+    </div>
+
+    <h2 class="section-title">Popular Collections</h2>
+    <div class="grid">
+        <div class="product-card">
+            <i class="far fa-heart heart-icon"></i>
+            <p class="offer-txt">25% Big Offer Coming Soon</p>
+            <img src="image/pro10.jpg" alt="Pro">
+            <p>Airpod Pro</p>
+            <p class="price">$29</p>
+            <a href="product.html" class="btn btn-blue" style="width:100%">Buy Now</a>
+        </div>
+        <div class="product-card">
+            <i class="far fa-heart heart-icon"></i>
+            <p class="offer-txt">25% Big Offer Coming Soon</p>
+            <img src="image/ear4.jpg" alt="Max">
+            <p>Airpod Max</p>
+            <p class="price">$35</p>
+            <a href="earbandsection.html" class="btn btn-blue" style="width:100%">Buy Now</a>
+        </div>
+    </div>
+
+    <div class="faq-wrap">
+        <div class="faq-item">
+            <div class="faq-head">1. What is an Airdrop? <i class="fas fa-chevron-down"></i></div>
+            <div class="faq-body">
+                <p style="padding:10px 0;">An airdrop is a promotional event where free tokens or products are
+                    distributed to users as part of a marketing strategy.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-head">2. How long does delivery take? <i class="fas fa-chevron-down"></i></div>
+            <div class="faq-body">
+                <p style="padding:10px 0;">Standard shipping usually takes 3-7 business days depending on your location.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Customer Service</h4>
+                <p>My Account</p>
+                <p>Checkup</p>
+                <p>FAQ</p>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Info</h4>
+                <p>Mobile: 123-456-789</p>
+                <p>Email: airnew@gmail.com</p>
+                <p>Address: 12, North City - 001</p>
+            </div>
+        </div>
+        <hr style="margin:20px 0; opacity:0.2;">
+        <p style="text-align:center; font-size:0.7rem;">© 2026 Airnew. co. all rights reserved.</p>
+    </footer>
+
+    <script>
+        // Profile Dropdown Toggle
+        const profileBtn = document.getElementById('profileBtn');
+        const profileDropdown = document.getElementById('profileDropdown');
+
+        profileBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            profileDropdown.classList.toggle('show');
+        });
+
+        // FAQ Accordion
+        const faqHeads = document.querySelectorAll('.faq-head');
+        faqHeads.forEach(head => {
+            head.addEventListener('click', () => {
+                const body = head.nextElementSibling;
+                const icon = head.querySelector('i');
+                if (body.style.maxHeight) {
+                    body.style.maxHeight = null;
+                    icon.style.transform = 'rotate(0deg)';
+                } else {
+                    body.style.maxHeight = body.scrollHeight + "px";
+                    icon.style.transform = 'rotate(180deg)';
+                }
+            });
+        });
+
+        // Close dropdown when clicking outside
+        window.onclick = () => {
+            profileDropdown.classList.remove('show');
+        };
+
+
+
+        const bellBtn = document.getElementById('bellBtn');
+        const notifBox = document.getElementById('notifBox');
+
+        bellBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevents the click from bubbling up
+            // Toggle display between none and block
+            if (notifBox.style.display === "none") {
+                notifBox.style.display = "block";
+            } else {
+                notifBox.style.display = "none";
+            }
+        });
+
+        // Close the notification if you click anywhere else on the page
+        window.addEventListener('click', () => {
+            notifBox.style.display = "none";
+        });
+    </script>
+</body>
+
+</html>

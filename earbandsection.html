@@ -1,0 +1,1892 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airnew - Magic Sound</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --blue: #2D79FF;
+            --dark: #333;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #e9ecef;
+        }
+
+        .page-wrapper {
+            max-width: 1200px;
+            margin: 40px auto;
+            background: #fff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            min-height: 90vh;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* --- Navbar Fixes --- */
+        .navbar {
+            padding: 20px 40px;
+            border-bottom: 1px solid #eee;
+            background: #fff;
+            transition: 0.3s;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-highlight {
+            background: #f0f7ff !important;
+            border-bottom: 2px solid var(--blue) !important;
+        }
+
+        .logo-group {
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .logo-circle img {
+            width: 150px;
+            border-radius: 50%;
+        }
+
+        .logo-label {
+            display: block;
+            color: var(--blue);
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            font-size: 24px;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        /* --- Icons Section --- */
+        .nav-icons {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .icon-btn,
+        .nav-icon {
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #333;
+            text-decoration: none;
+            background: none;
+            border: none;
+        }
+
+        /* Highlight box style for JS */
+        .highlight-box {
+            background: var(--blue) !important;
+            color: #fff !important;
+        }
+
+        .nav-menu a.active {
+            color: var(--blue);
+            border-bottom: 2px solid var(--blue);
+            border-radius: 0;
+        }
+
+        /* --- Actions (Cart/Wishlist) Fix --- */
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            color: var(--blue);
+            /* Forces icons to be blue */
+        }
+
+        .nav-actions i {
+            font-size: 20px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .nav-actions i:hover {
+            transform: scale(1.2);
+        }
+
+        .profile-pic {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .search-section {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 15px;
+        }
+
+        .search-box {
+            position: relative;
+            width: 220px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .search-box i {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            color: #999;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--highlight);
+            box-shadow: 0 0 8px var(--highlight-glow);
+            transition: 0.3s;
+        }
+
+        .search-box i:hover {
+            color: var(--highlight);
+            /* Icon turns blue when hovered */
+        }
+
+        /* --- Hero Section --- */
+        .hero-section {
+            display: flex;
+            align-items: center;
+            padding: 60px 40px;
+            gap: 40px;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero-text h1 {
+            color: var(--blue);
+            font-size: 40px;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .hero-text p {
+            color: #666;
+            margin: 20px 0 40px;
+            line-height: 1.6;
+        }
+
+        .cta-row {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn-blue {
+            background: var(--blue);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+
+        .btn-underline {
+            background: none;
+            border: none;
+            text-decoration: underline;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .avatar-stack {
+            display: flex;
+            align-items: center;
+        }
+
+        .avatar-stack img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            margin-left: -15px;
+        }
+
+        .plus-circle {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            border: 1px solid #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 5px;
+            font-size: 12px;
+            background: #fff;
+        }
+
+        /* The Outer Section */
+        .hero-section {
+            width: 100%;
+            padding: 60px 0;
+            /* Vertical padding only */
+            background: #fff;
+        }
+
+        /* The Inner Container - Keeps content centered and neat */
+        .hero-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            /* This visually swaps the image to the left and text to the right */
+            flex-direction: row-reverse;
+            gap: 40px;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero-text {
+            flex: 1;
+            text-align: right;
+            /* Aligns h1 and p to the right */
+        }
+
+        /* Moves the button box and avatars to the right side of the flex container */
+        .cta-row {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .hero-img {
+            flex: 1;
+            text-align: center;
+        }
+
+        .hero-img img {
+            max-width: 50%;
+            height: auto;
+        }
+
+        /* --- Responsive Container --- */
+        @media (max-width: 850px) {
+            .hero-container {
+                flex-direction: column;
+                /* Stacks image under text on mobile */
+                text-align: center;
+                gap: 30px;
+            }
+
+            .hero-text h1 {
+                font-size: 32px;
+            }
+
+            .cta-row {
+                justify-content: center;
+            }
+        }
+
+        /* --- Hamburger --- */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--dark);
+            border-radius: 2px;
+        }
+
+        /* --- Mobile Responsive --- */
+        @media (max-width: 850px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                display: none;
+                /* Keep this for your JS toggle */
+                flex-direction: column;
+                align-items: center;
+                /* Centers the links horizontally */
+                justify-content: center;
+                /* Centers the links vertically if you give it height */
+
+                /* 1. Increase Text Size */
+                font-size: 42px;
+                font-weight: bold;
+
+                /* 2. Increase Container Size */
+                position: absolute;
+                top: 100px;
+                left: 0;
+                width: 100%;
+                min-height: 400px;
+                /* Gives the menu a substantial "drop-down" feel */
+
+                /* 3. Visuals & Spacing */
+                background: #fff;
+                padding: 50px 20px;
+                /* More vertical breathing room */
+                gap: 30px;
+                /* Space between each menu link */
+
+                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+                z-index: 1000;
+            }
+
+            /* 4. Increase the clickable area of the links */
+            .nav-menu a {
+                text-decoration: none;
+                color: #333;
+                width: 100%;
+                text-align: center;
+                padding: 15px 0;
+                transition: 0.3s;
+            }
+
+            /* Apply your highlight effect on hover */
+            .nav-menu a:hover {
+                color: var(--highlight);
+                background: rgba(0, 212, 255, 0.05);
+            }
+
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .hero-section {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .cta-row {
+                justify-content: center;
+            }
+
+            .search-section {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 850px) {
+            .nav-menu {
+
+                /* Hidden by default */
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+
+                /* 1. Force Height and Full Width */
+                position: absolute;
+                top: 100px;
+                /* Adjust this to match your navbar height */
+                left: 0;
+                width: 100%;
+                min-height: 500px;
+                /* This forces the menu to be much taller */
+
+                /* 2. Larger Text and Spacing */
+                font-size: 45px;
+                /* Significantly increased from 30px */
+                font-weight: bold;
+                gap: 40px;
+                /* Adds large gaps between menu items */
+
+                background: #fff;
+                padding: 60px 0;
+                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+                z-index: 1000;
+            }
+
+            /* Ensure links take up the full width for easier clicking */
+            .nav-menu li {
+                width: 100%;
+                text-align: center;
+            }
+
+
+            .nav-menu a {
+                text-decoration: none;
+                color: var(--dark);
+
+                /* change this */
+                font-weight: bold;
+                padding: 15px 0;
+            }
+
+            .nav-menu {
+                display: flex;
+                list-style: none;
+                /* Increase gap to give larger text more room */
+                gap: 35px;
+                padding: 0;
+                margin: 0;
+            }
+
+            .nav-container {
+                display: flex;
+                align-items: center;
+                /* This keeps the logo and the large links perfectly aligned */
+                justify-content: space-between;
+            }
+
+            .nav-menu {
+                display: flex;
+                list-style: none;
+                /* Increase gap to give larger text more room */
+                gap: 35px;
+                padding: 0;
+                margin: 0;
+            }
+
+            /* .nav-menu a {
+                font-size: 45px !important;
+                /* Forces the size increase 
+            display: block;
+            padding: 20px 0;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            /* Increase gap to give larger text more room 
+            gap: 35px;
+            padding: 0;
+            margin: 0;
+        } */
+
+
+
+            /* Show the menu when active class is added by JS */
+            .nav-menu.active {
+                display: flex;
+            }
+        }
+
+        .logo-circle {
+            /* Set specific, equal dimensions to increase the size */
+            width: 150px;
+            height: 150px;
+
+            border-radius: 50%;
+            overflow: hidden;
+            /* This MUST be here to make it a circle */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+        }
+
+        .logo-circle img {
+            /* Ensure the image fills the new larger container */
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Prevents the image from looking squashed */
+        }
+
+        .logo-label {
+            display: block;
+            font-size: 22px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+
+            /* Move further right to accommodate the larger circle */
+            margin-left: 30px;
+
+            animation: highlight-pulse 2s infinite ease-in-out;
+        }
+
+        /* The Animation Logic */
+        @keyframes onOffAnimation {
+
+            0%,
+            100% {
+                opacity: 1;
+                text-shadow: 0 0 8px rgba(45, 121, 255, 0.6);
+            }
+
+            50% {
+                opacity: 0.2;
+                /* "Off" state - semi-transparent */
+                text-shadow: none;
+            }
+        }
+
+        /* Animation effect both header and footer */
+        /* Animation effect both header and footer */
+        /* Animation effect both header and footer */
+
+        /* Apply to the logo-label class */
+        :root {
+            /* Changing static blue to a vibrant highlight color */
+            --highlight: #00d4ff;
+            --highlight-glow: rgba(0, 212, 255, 0.6);
+            --dark: #333;
+        }
+
+        /* Automatic On/Off Animation for Logo & Footer Label */
+        @keyframes highlight-pulse {
+
+            0%,
+            100% {
+                color: var(--highlight);
+                text-shadow: 0 0 10px var(--highlight-glow), 0 0 20px var(--highlight-glow);
+                opacity: 1;
+            }
+
+            50% {
+                color: #888;
+                /* "Off" state */
+                text-shadow: none;
+                opacity: 0.5;
+            }
+        }
+
+        .logo-label {
+            display: block;
+            font-size: 22px;
+            align-items: right;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-left: 20px;
+            /* Apply the automatic animation */
+            animation: highlight-pulse 2s infinite ease-in-out;
+        }
+
+        /* Updated Button with Highlight Effect */
+        .btn-blue {
+            background: var(--highlight);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px var(--highlight-glow);
+            transition: 0.3s;
+        }
+
+        .btn-blue:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--highlight);
+        }
+
+        /* Active Nav Link Highlight */
+        .nav-menu a.active {
+            color: var(--highlight);
+            border-bottom: 2px solid var(--highlight);
+        }
+
+        /* heroimage second content */
+        /* heroimage second content */
+        /* heroimage second content */
+        /* heroimage second content */
+        /* Container for the images */
+        .gallery-container {
+            display: flex;
+            flex-direction: row;
+            /* Side by side on desktop */
+            gap: 20px;
+            max-width: 1200px;
+            width: 100%;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Image Wrapper */
+        .image-box {
+            flex: 1;
+            /* Equal width columns */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-box img {
+            width: 40%;
+            height: auto;
+            border-radius: soild black 12px;
+            display: block;
+        }
+
+        /* --- Media Query for Mobile --- */
+        @media (max-width: 768px) {
+            .gallery-container {
+                flex-direction: column;
+                /* Stack vertically */
+                padding: 20px;
+            }
+
+            .image-box {
+                width: 100%;
+            }
+        }
+
+        /* third fiulter content*/
+        /* third fiulter content*/
+        /* third fiulter content*/
+        /* third fiulter content*/
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+        }
+
+        .category-header {
+            text-align: center;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .filter-toggle {
+            text-align: left;
+            padding: 15px 40px;
+            font-size: 20px;
+            cursor: pointer;
+            display: inline-block;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Dropdown Animation Logic */
+        .blue-section {
+            background-color: #2b7fff;
+            color: white;
+            max-height: 0;
+            /* Starts hidden */
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, padding 0.3s;
+            padding: 0 40px;
+            position: relative;
+        }
+
+        /* When this class is added via JS, the menu slides down */
+        .blue-section.open {
+            max-height: 500px;
+            padding: 60px 40px;
+        }
+
+        .container {
+            display: flex;
+            gap: 100px;
+        }
+
+        h3 {
+            margin-top: 0;
+            margin-bottom: 25px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .filter-item {
+            padding: 8px 12px;
+            margin-bottom: 5px;
+            cursor: pointer;
+            border-radius: 4px;
+            /* Box shape */
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* THE BOX HIGHLIGHT EFFECT */
+        .box-highlight {
+            background-color: rgba(255, 255, 255, 0.25);
+            /* Transparent white box */
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transform: scale(1.02);
+        }
+
+        .submit-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 40px;
+            background: white;
+            color: #2b7fff;
+            border: none;
+            padding: 10px 35px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Ensure the link doesn't have an underline and looks like a button */
+        .buy-now {
+            text-decoration: none;
+            display: inline-block;
+            background-color: #3b82f6;
+            color: white;
+            padding: 6px 15px;
+            border-radius: 4px;
+            font-size: 12px;
+            text-align: center;
+            transition: background 0.3s;
+        }
+
+        .buy-now:hover {
+            background-color: #2563eb;
+            /* Slightly darker on hover */
+        }
+
+        /* content 4 */
+        /* content 4 */
+        /* content 4 */
+        /* content 4 */
+        /* Grid setup: 3 columns on desktop, 1 on mobile */
+        .hero-section {
+            width: 100%;
+            padding: 40px 20px;
+            background-color: #fff;
+            overflow: hidden;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            /* Centers items vertically */
+            gap: 20px;
+            /* Space between the two images */
+        }
+
+        .hero-image-box {
+            flex: 1;
+            /* Gives both images equal width */
+        }
+
+        .hero-image-box img {
+            width: 130%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+            /* Ensures the image doesn't get cropped */
+        }
+
+        /* Optional: Add a slight border or shadow to match the clean aesthetic */
+        .product img {
+            max-width: 450px;
+            /* Keeps the case image from getting too massive */
+            margin: 0 auto;
+        }
+
+        /* --- MEDIA QUERY FOR MOBILE --- */
+        @media (max-width: 768px) {
+            .hero-container {
+                flex-direction: column;
+                /* Stacks images on top of each other */
+                text-align: center;
+            }
+
+            .hero-image-box {
+                width: 100%;
+            }
+        }
+
+        .hero-section {
+            width: 100%;
+            padding: 40px 20px;
+            background-color: #fff;
+            overflow: hidden;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            /* Centers items vertically */
+            gap: 20px;
+            /* Space between the two images */
+        }
+
+        .hero-image-box {
+            flex: 1;
+            /* Gives both images equal width */
+        }
+
+        .hero-image-box img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+            /* Ensures the image doesn't get cropped */
+        }
+
+        /* Optional: Add a slight border or shadow to match the clean aesthetic */
+        .product img {
+            max-width: 450px;
+            /* Keeps the case image from getting too massive */
+            margin: 0 auto;
+        }
+
+        /* --- MEDIA QUERY FOR MOBILE --- */
+        @media (max-width: 768px) {
+            .hero-container {
+                flex-direction: column;
+                /* Stacks images on top of each other */
+                text-align: center;
+            }
+
+            .hero-image-box {
+                width: 100%;
+            }
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 20px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .wishlist-icon {
+            color: #2b7fff;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        .product-name {
+            font-size: 35px;
+            margin: 10px 0;
+            color: #555;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .name {
+            font-size: 35px;
+            color: #555;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .icon {
+            font-size: 30px;
+        }
+
+        .image-container img {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            margin: 10px 0;
+        }
+
+        .price {
+            font-weight: bold;
+            font-size: 25px;
+            margin: 10px 0;
+        }
+
+        /* The Highlight Style */
+        .global-highlight {
+            color: #e23804 !important;
+            /* Change to your preferred brand color */
+            filter: drop-shadow(0 0 8px rgba(52, 152, 219, 0.8));
+            transform: scale(1.05);
+            transition: all 0.3s ease;
+        }
+
+        /* Specific styling for the search bar if it has a border */
+        input.searchbar.global-highlight {
+            border-color: #3498db;
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+            outline: none;
+        }
+
+        /* Footer layout with icons and button */
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .buy-now {
+            background-color: #2D79FF;
+            /* Blue color from image */
+            color: white;
+            border: none;
+            padding: 6px 15px;
+            border-radius: 4px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .cart-icon {
+            font-size: 25px;
+            color: #666;
+        }
+
+        .user-avatars {
+            display: flex;
+        }
+
+        .avatar {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 1px solid white;
+            margin-left: -8px;
+            /* Overlapping effect */
+        }
+
+        /* --- Media Query for Responsiveness --- */
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+                /* 2 per row on tablets */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+                /* 1 per row on phones */
+            }
+        }
+
+        /* Update your existing .img-box class with these properties */
+        .img-box {
+            width: 100%;
+            height: 150px;
+            /* Standard size for the grid cards in your image */
+            display: flex;
+            /* Centers the image perfectly */
+            justify-content: center;
+            align-items: center;
+            margin: 15px 0;
+            background-color: #fcfcfc;
+            /* Light background to define the box */
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .img-box img {
+            max-width: 90%;
+            /* Keeps space between image and box edge */
+            max-height: 90%;
+            /* Prevents the image from being too tall */
+            object-fit: contain;
+            /* Ensures different shaped images all fit perfectly */
+            transition: transform 0.3s ease;
+        }
+
+        /* Optional: Zoom effect when hovering over the card */
+        .product-card:hover .img-box img {
+            transform: scale(1.1);
+        }
+
+        .avatar-group {
+            display: flex;
+            align-items: center;
+            /* Moves the group to the right slightly to account for negative margin */
+            padding-left: 10px;
+        }
+
+        .avatar,
+        .avatar-count {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            /* White border creates the "cutout" look */
+            object-fit: cover;
+            /* Negative margin makes them overlap */
+            margin-left: -8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #eee;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        /* Ensure the first one doesn't have a negative margin */
+        .avatar:first-child {
+            margin-left: 0;
+        }
+
+        .avatar-count {
+            background: #f0f0f0;
+            color: #555;
+            border: 1px solid #ccc;
+        }
+
+        .buy-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            /* space between button and avatars */
+        }
+
+        .buy-btn {
+            padding: 6px 12px;
+            cursor: pointer;
+        }
+
+        .avatars {
+            display: flex;
+            align-items: center;
+        }
+
+        .avatars img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-left: -10px;
+            /* overlap effect */
+            border: 2px solid white;
+        }
+
+        .more {
+            background: #ddd;
+            border-radius: 50%;
+            padding: 5px 8px;
+            font-size: 12px;
+            margin-left: 5px;
+        }
+
+        .buy-btn {
+            background: skyblue;
+            width: 40%;
+            color: #000;
+            border: 1px solid #000;
+            padding: 6px 14px;
+            font-size: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        /* Hover effect */
+        .buy-btn:hover {
+            background: #000;
+            color: #fff;
+        }
+
+        /* Click effect */
+        .buy-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* main footer */
+        /* main footer */
+        /* main footer */
+        /* main footer */
+        /* main footer */
+
+        .main-footer {
+            background-color: #2d79ff;
+            /* The exact blue from your screenshot */
+            color: #ffffff;
+            padding: 60px 0 20px;
+            font-family: sans-serif;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 40px;
+        }
+
+        .footer-col h4 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            font-weight: normal;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        /* Contact Details Spacing */
+        .contact-details {
+            margin-top: 25px;
+            font-size: 18px;
+            line-height: 1.8;
+        }
+
+        /* Social Icons - White Circles with Dark Icons */
+        .social-icons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            background: #ffffff;
+            color: #2d79ff;
+            /* Icon matches footer blue */
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        /* The container for the footer logo */
+        .footer-logo-circle {
+            width: 150px;
+            /* Equal width and height for a circle */
+            height: 150px;
+            /* Equal width and height for a circle */
+            border-radius: 50%;
+            /* Rounds the corners into a perfect circle */
+            overflow: hidden;
+            /* Cuts off the square corners of the image */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+            /* Provides a background if the image has transparency */
+            margin-bottom: 10px;
+            /* Space between the image and the text label */
+        }
+
+        /* The image inside the footer circle */
+        .footer-logo-circle img {
+            width: 100%;
+            /* Forces image to fill the container width */
+            height: 100%;
+            /* Forces image to fill the container height */
+            object-fit: cover;
+            /* Prevents the image from looking squashed or stretched */
+        }
+
+        /* Copyright Bar */
+        .footer-copyright {
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: 40px;
+            padding-top: 20px;
+            font-size: 12px;
+        }
+
+        @media (max-width: 850px) {
+            .nav-menu a {
+                font-size: 40px !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page-wrapper">
+        <nav class="navbar" id="main-nav">
+            <div class="nav-container">
+                <div class="logo-group">
+                    <div class="logo-circle">
+                        <img src="image/logo.jpg" alt="Airnew">
+                    </div>
+                    <span class="logo-label">Airnew</span>
+                </div>
+
+                <div class="hamburger" id="hamburger">
+                    <span></span><span></span><span></span>
+                </div>
+
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="product.html" class="active">Products</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="blog.html">Blogs</a></li>
+                    <li><a href="contactus.html">Contact us</a></li>
+                    <li><a href="aboutus.html">About us</a></li>
+                </ul>
+
+                <!-- <div class="nav-icons">
+                    <div class="profile-wrapper">
+                        <img src="image/navlogo.jpg" alt="User" class="profile-img">
+                        <div class="dropdown-content">
+                            <a href="accountinformation.html">Account Information</a>
+                            <a href="ordercompletedpage.html">My Order</a>
+                            <a href="trackingpage.html">Tracking Order</a>
+                            <a href="passwordmanager.html">Password Manager</a>
+                            <a href="logout.html">Logout</a>
+
+                        </div>
+                    </div>
+                    <div class="nav-actions">
+                        <a href="whislist.html" class="icon-btn"><i class="fa-regular fa-heart"></i></a>
+
+                        <a href="cart.html" class="icon-btn"><i class="fa-solid fa-cart-shopping"></i></a>
+
+                        <button id="notification-btn" class="nav-icon">
+                            🔔 <span id="badge" class="dot"></span>
+                        </button>
+
+
+                        <div id="msg-box" class="hidden">
+                            <p>🎁 Order/Delivery Notifications
+
+                                We offer fast and reliable delivery to ensure your gifts arrive fresh, on time, and
+                                beautifully packaged. Choose from standard, express, or same-day delivery options at
+                                checkout
+                            </p>
+                        </div>
+                    </div> -->
+                <!-- <div class="nav-actions">
+                    <img src="image/logo2.jpg" class="profile-pic" alt="User">
+                    <i class="fa-regular fa-heart" title="Wishlist"></i>
+                    <i class="fa-solid fa-cart-shopping" title="Cart"></i>
+                    <i class="fa-regular fa-bell" title="Notifications"></i>
+                </div> -->
+                <div class="nav-actions">
+                    <div class="profile-wrapper" style="position: relative; display: inline-block;">
+                        <img src="image/logo2.jpg" class="profile-pic" alt="User" id="profileBtn"
+                            style="cursor: pointer;">
+
+                        <div id="profileDropdown" class="dropdown-content"
+                            style="display: none; position: absolute; right: 0; background: white; border: 1px solid #ddd; box-shadow: 0 5px 10px rgba(0,0,0,0.1); width: 200px; z-index: 1000; padding: 10px;">
+                            <p style="font-weight: bold; padding: 5px 10px; border-bottom: 1px solid #eee;">My Account
+                            </p>
+                            <a href="accountinformation.html"
+                                style="display: block; padding: 10px; color: white; background: #2D79FF; margin-bottom: 5px; text-decoration: none;">Account
+                                Information</a>
+                            <a href="ordercompletedpage.html"
+                                style="display: block; padding: 10px; color: white; background: #2D79FF; margin-bottom: 5px; text-decoration: none;">My
+                                order</a>
+                            <a href="trackingpage.html"
+                                style="display: block; padding: 10px; color: white; background: #2D79FF; margin-bottom: 5px; text-decoration: none;">Tracking
+                                order</a>
+                            <a href="passwordmanager.html"
+                                style="display: block; padding: 10px; color: white; background: #2D79FF; margin-bottom: 5px; text-decoration: none;">Password
+                                Manager</a>
+                            <a href="logout.html"
+                                style="display: block; padding: 10px; color: white; background: #2D79FF; text-decoration: none;">Logout</a>
+                        </div>
+                    </div>
+
+                    <a href="whislist.html"><i class="fa-regular fa-heart" title="Wishlist"></i></a>
+                    <a href="cart.html"><i class="fa-solid fa-cart-shopping" title="Cart"></i></a>
+                    <i class="fa-regular fa-bell" id="notifIcon" title="Notifications" style="cursor: pointer;"></i>
+                </div>
+
+                <div id="notifBox"
+                    style="display: none; position: fixed; top: 80px; right: 20px; background: #f0f7ff; border-left: 5px solid #2D79FF; padding: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); width: 250px; z-index: 1001;">
+                    <p style="margin: 0; font-size: 14px; color: #333;">🎁 Your Airpad Pro order is out for delivery!
+                        Expect it today by 5 PM.</p>
+                </div>
+            </div>
+
+            <div class="search-section">
+                <div class="search-box">
+                    <input type="text" id="productSearch" placeholder="Search products (e.g. Airpad Pro)...">
+                    <i class="fa-solid fa-magnifying-glass" onclick="handleSearch()" style="cursor: pointer;"></i>
+                </div>
+            </div>
+            <!-- <div class="search-section">
+                <div class="search-box">
+                    <input type="text" placeholder="Search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+            </div> -->
+        </nav>
+        <!------imagesection second-->
+        <!------imagesection second-->
+        <!------imagesection second-->
+        <!------imagesection second-->
+        <section class="hero-section">
+            <div class="hero-container">
+                <div class="hero-image-box lifestyle">
+                    <img src="image/pro10.jpg" alt="People dancing around earbuds">
+                </div>
+
+                <div class="hero-image-box product">
+                    <img src="image/pro3.jpg" alt="Airpad with charging case screen">
+                </div>
+            </div>
+        </section>
+        <!-- <div class="gallery-container">
+            <div class="image-box">
+                <img src="image/product1.jpg" alt="Miniature people dancing near earbuds">
+            </div>
+
+            <div class="image-box">
+                <img src="image/product2.jpg" alt="Earbuds case with integrated touch screen">
+            </div>
+        </div> -->
+
+        <div class="blue-<div class=" category-header">
+            <h1>categories</h1>
+            <div class="filter-toggle" id="filterToggle">
+                Filter section <span id="arrow">∨</span>
+            </div>
+        </div>
+        <!---third content-->
+        <!---third content-->
+        <!---third content-->
+
+        <div class="blue-section" id="filterMenu">
+            <div class="container">
+                <div class="col">
+                    <h3>Product type</h3>
+                    <ul>
+                        <li class="filter-item"><span>◎</span> Earband</li>
+                        <li class="filter-item"><span>◎</span> Wired airpod</li>
+                        <li class="filter-item"><span>◎</span> wireless airpod</li>
+                    </ul>
+                </div>
+
+                <div class="col">
+                    <h3>Price range</h3>
+                    <ul>
+                        <li class="filter-item"><span>◎</span> $ 20 - $ 30</li>
+                        <li class="filter-item"><span>◎</span> $ 30 - $ 40</li>
+                        <li class="filter-item"><span>◎</span> $ 40 - $ 60</li>
+                    </ul>
+                </div>
+
+                <div class="col">
+                    <h3>Choose brand</h3>
+                    <ul>
+                        <li class="filter-item"><span>◎</span> Air pad 3rd generation</li>
+                        <li class="filter-item"><span>◎</span> Airpad Pro Max Wired</li>
+                        <li class="filter-item"><span>◎</span> Max wireless airpod</li>
+                    </ul>
+                </div>
+            </div>
+            <a href="review.html" class="submit-btn">Buy Now</a>
+            <!-----<button class="submit-btn">Submit</button>----->
+        </div>
+        <!--------content four-->
+        <!--------content four-->
+        <!--------content four-->
+        <!--------content four-->
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="card-header"><span class="offer">25% Big Offer Coming Soon</span><span
+                        class="heart">♡</span></div>
+                <p class="name">Airpad Pro</p>
+                <div class="img-box"><img src="image/ear1.jpg" alt="Headphones"></div>
+                <p class="price">$29</p>
+                <div class="footer">
+                    <div class="buy-section">
+                        <span class="icon">🛒</span>
+                        <button class="buy-btn" onclick="location.href='review.html'">Buy Now</button>
+
+                        <div class="avatars">
+                            <img src="image/ava1.jpg" />
+                            <img src="image/ava2.jpg" />
+                            <img src="image/ava3.jpg" />
+                            <span class="more">+4</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+            <div class="product-card">
+                <div class="card-header"><span class="offer">25% Big Offer Coming Soon</span><span
+                        class="heart">♡</span></div>
+                <p class="name">Airpad Pro</p>
+                <div class="img-box"><img src="image/ear2.jpg" alt="Headphones"></div>
+                <p class="price">$29</p>
+                <div class="footer">
+                    <div class="buy-section">
+                        <span class="icon">🛒</span>
+                        <button class="buy-btn" onclick="location.href='review.html'">Buy Now</button>
+
+                        <div class="avatars">
+                            <img src="image/ava1.jpg" />
+                            <img src="image/ava2.jpg" />
+                            <img src="image/ava3.jpg" />
+                            <span class="more">+4</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="product-card">
+                <div class="card-header"><span class="offer">25% Big Offer Coming Soon</span><span
+                        class="heart">♡</span></div>
+                <p class="name">Airpad Pro</p>
+                <div class="img-box"><img src="image/ear3.jpg" alt="Headphones"></div>
+                <p class="price">$29</p>
+                <div class="footer">
+                    <div class="buy-section">
+                        <span class="icon">🛒</span>
+                        <button class="buy-btn" onclick="location.href='review.html'">Buy Now</button>
+
+                        <div class="avatars">
+                            <img src="image/ava1.jpg" />
+                            <img src="image/ava2.jpg" />
+                            <img src="image/ava3.jpg" />
+                            <span class="more">+4</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="product-card">
+                <div class="card-header"><span class="offer">25% Big Offer Coming Soon</span><span
+                        class="heart">♡</span></div>
+                <p class="name">Airpad Pro</p>
+                <div class="img-box"><img src="image/ear4.jpg" alt="Headphones"></div>
+                <p class="price">$29</p>
+                <div class="footer">
+                    <div class="buy-section">
+                        <span class="icon">🛒</span>
+                        <button class="buy-btn" onclick="location.href='review.html'">Buy Now</button>
+
+                        <div class="avatars">
+                            <img src="image/ava1.jpg" />
+                            <img src="image/ava2.jpg" />
+                            <img src="image/ava3.jpg" />
+                            <span class="more">+4</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="product-card">
+                <div class="card-header"><span class="offer">25% Big Offer Coming Soon</span><span
+                        class="heart">♡</span></div>
+                <p class="name">Airpad Pro</p>
+                <div class="img-box"><img src="image/ear5.jpg" alt="Headphones"></div>
+                <p class="price">$29</p>
+                <div class="footer">
+                    <div class="buy-section">
+                        <span class="icon">🛒</span>
+                        <button class="buy-btn" onclick="location.href='review.html'">Buy Now</button>
+
+                        <div class="avatars">
+                            <img src="image/ava1.jpg" />
+                            <img src="image/ava2.jpg" />
+                            <img src="image/ava3.jpg" />
+                            <span class="more">+4</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+            <div class="product-card">
+                <div class="card-header"><span class="offer">25% Big Offer Coming Soon</span><span
+                        class="heart">♡</span></div>
+                <p class="name">Airpad Pro</p>
+                <div class="img-box"><img src="image/ear6.jpg" alt="Headphones"></div>
+                <p class="price">$29</p>
+                <div class="footer">
+                    <div class="buy-section">
+                        <span class="icon">🛒</span>
+                        <button class="buy-btn" onclick="location.href='review.html'">Buy Now</button>
+
+                        <div class="avatars">
+                            <img src="image/ava1.jpg" />
+                            <img src="image/ava2.jpg" />
+                            <img src="image/ava3.jpg" />
+                            <span class="more">+4</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+
+
+            <div class="product-card">
+                <div class="card-header"><span class="offer">25% Big Offer Coming Soon</span><span
+                        class="heart">♡</span></div>
+                <p class="name">Airpad Pro</p>
+                <div class="img-box"><img src="image/ear7.jpg" alt="Headphones"></div>
+                <p class="price">$29</p>
+                <div class="footer">
+                    <div class="buy-section">
+                        <span class="icon">🛒</span>
+                        <button class="buy-btn" onclick="location.href='review.html'">Buy Now</button>
+
+                        <div class="avatars">
+                            <img src="image/ava1.jpg" />
+                            <img src="image/ava2.jpg" />
+                            <img src="image/ava3.jpg" />
+                            <span class="more">+4</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="card-header"><span class="offer">25% Big Offer Coming Soon</span><span
+                        class="heart">♡</span></div>
+                <p class="name">Airpad Pro</p>
+                <div class="img-box"><img src="image/ear8.jpg" alt="Headphones"></div>
+                <p class="price">$29</p>
+                <div class="footer">
+                    <div class="buy-section">
+                        <span class="icon">🛒</span>
+                        <button class="buy-btn" onclick="location.href='review.html'">Buy Now</button>
+
+                        <div class="avatars">
+                            <img src="image/ava1.jpg" />
+                            <img src="image/ava2.jpg" />
+                            <img src="image/ava3.jpg" />
+                            <span class="more">+4</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="card-header"><span class="offer">25% Big Offer Coming Soon</span><span
+                        class="heart">♡</span></div>
+                <p class="name">Airpad Pro</p>
+                <div class="img-box"><img src="image/ear9.jpg" alt="Headphones"></div>
+                <p class="price">$29</p>
+                <div class="footer">
+                    <div class="buy-section">
+                        <span class="icon">🛒</span>
+                        <button class="buy-btn" onclick="location.href='review.html'">Buy Now</button>
+
+                        <div class="avatars">
+                            <img src="image/ava1.jpg" />
+                            <img src="image/ava2.jpg" />
+                            <img src="image/ava3.jpg" />
+                            <span class="more">+4</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <footer class="main-footer">
+            <div class="footer-container">
+                <div class="footer-col logo-col">
+                    <div class="footer-logo-circle">
+                        <img src="image/logo.jpg" alt="Airnew">
+                    </div>
+                    <span class="logo-label">Airnew</span>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Customer service</h4>
+                    <ul>
+                        <li><a href="#">My Account</a></li>
+                        <li><a href="#">Checkup</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Return</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About us</a></li>
+                        <li><a href="#">Blogs</a></li>
+                        <li><a href="#">Contact us policy</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col contact-col">
+                    <h4>Our information</h4>
+                    <ul>
+                        <li><a href="#">Privacy</a></li>
+                        <li><a href="#">Terms & Condition</a></li>
+                        <li><a href="#">Customer Feed back</a></li>
+                    </ul>
+
+                    <div class="contact-details">
+                        <p>Mobile: 123-456-789</p>
+                        <p>Email: Airnew@gmail.com</p>
+                        <p>Address : 12, north city-001</p>
+                    </div>
+
+                    <div class="social-icons">
+                        <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-copyright">
+                <p>© 2026 airnew. co. All rights reserved.</p>
+                <p><strong>Terms & Conditions | Privacy Policy</strong></p>
+            </div>
+        </footer>
+        <script>
+            const nav = document.getElementById('main-nav');
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('nav-menu');
+            const magicTitle = document.getElementById('magic-title');
+            const navLinks = document.querySelectorAll('#nav-menu a');
+
+            // 1. Toggle Hamburger Menu (Mobile)
+            hamburger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                navMenu.classList.toggle('active');
+            });
+
+            // 2. Navbar Background Highlight Click
+            nav.addEventListener('click', (e) => {
+                if (e.target.tagName !== 'A' && e.target.tagName !== 'BUTTON' && !e.target.classList.contains('profile-pic')) {
+                    nav.classList.toggle('nav-highlight');
+                }
+            });
+
+            // 3. Magic Title Highlight Effect
+            if (magicTitle) {
+                magicTitle.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    navLinks.forEach(link => {
+                        link.classList.toggle('highlight-box');
+                    });
+                });
+            }
+
+            // 4. Search Bar Logic
+            function handleSearch() {
+                const input = document.getElementById('productSearch').value.toLowerCase().trim();
+                if (input === "airpad pro" || input === "airpad") {
+                    window.location.href = "earbandsection.html";
+                } else if (input === "") {
+                    alert("Please enter a product name.");
+                } else {
+                    alert("Product not found. Try 'Airpad Pro'");
+                }
+            }
+
+            document.getElementById('productSearch').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') handleSearch();
+            });
+
+            // 5. Profile Dropdown Logic
+            const profileBtn = document.getElementById('profileBtn');
+            const profileDropdown = document.getElementById('profileDropdown');
+
+            profileBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                // Toggle display between none and block
+                const isHidden = profileDropdown.style.display === 'none' || profileDropdown.style.display === '';
+                profileDropdown.style.display = isHidden ? 'block' : 'none';
+
+                // Ensure notification is hidden when profile is opened
+                notifBox.style.display = 'none';
+            });
+
+            // 6. Notification Logic
+            const notifIcon = document.getElementById('notifIcon');
+            const notifBox = document.getElementById('notifBox');
+
+            notifIcon.addEventListener('click', (e) => {
+                e.stopPropagation();
+                notifBox.style.display = 'block';
+                profileDropdown.style.display = 'none';
+
+                // Auto-hide notification after 5 seconds
+                setTimeout(() => {
+                    notifBox.style.display = 'none';
+                }, 5000);
+            });
+
+            // 7. Global Click (Close everything when clicking outside)
+            document.addEventListener('click', (e) => {
+                // Close Mobile Menu
+                if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
+                    navMenu.classList.remove('active');
+                }
+                // Close Profile Dropdown
+                if (!profileDropdown.contains(e.target) && e.target !== profileBtn) {
+                    profileDropdown.style.display = 'none';
+                }
+                // Close Notification
+                if (!notifBox.contains(e.target) && e.target !== notifIcon) {
+                    notifBox.style.display = 'none';
+                }
+            });
+
+
+            // 1. Search Bar Logic
+            function handleSearch() {
+                const searchInput = document.getElementById('productSearch');
+                const query = searchInput.value.toLowerCase().trim();
+
+                if (query === "airpad pro" || query === "airpad") {
+                    // Redirect to your specific product page
+                    window.location.href = "earbandsection.html";
+                } else if (query === "") {
+                    alert("Please enter a product name to search.");
+                } else {
+                    // Fallback if product isn't found
+                    alert("Product not found. Try searching for 'Airpad Pro'");
+                }
+            }
+
+            // 2. Listen for "Enter" key press inside the search input
+            document.getElementById('productSearch').addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    handleSearch();
+                }
+            });
+
+            // 3. Auto-fill Suggestion (Optional)
+            // This fills the search bar automatically when the user clicks into it
+            document.getElementById('productSearch').addEventListener('focus', function () {
+                if (this.value === "") {
+                    this.value = "Airpad Pro";
+
+                    // Optional: Automatically search after a brief delay
+                    setTimeout(() => {
+                        handleSearch();
+                    }, 1000);
+                }
+            });
+            //contenrt third
+            //contenrt third
+
+
+
+            const filterToggle = document.getElementById('filterToggle');
+            const filterMenu = document.getElementById('filterMenu');
+            const allItems = document.querySelectorAll('.filter-item');
+
+            // 1. Dropdown Toggle Logic
+            filterToggle.addEventListener('click', () => {
+                filterMenu.classList.toggle('open');
+            });
+
+            // 2. Click any item -> Highlight all -> Redirect
+            allItems.forEach(item => {
+                item.addEventListener('click', () => {
+
+                    // Apply box-shaped highlight to every item in the list
+                    allItems.forEach(i => {
+                        i.classList.add('box-highlight');
+                    });
+
+                    // Redirect after the user sees the boxes highlight
+                    setTimeout(() => {
+                        window.location.href = "earbandsection.html";
+                    }, 500);
+                });
+            });
+
+
+
+            //highlights for all page
+            document.addEventListener('click', () => {
+                // Select all the elements you want to highlight
+                // Adjust the selectors (.cart, .wishlist, etc.) to match your class names
+                const itemsToHighlight = document.querySelectorAll('#nav-menu a, .profile, .wishlist, .cart, .searchbar,.profile-wrapper, .fa-regular, .fa-heart,.fa-regular .fa-bell,.logo');
+
+                itemsToHighlight.forEach(item => {
+                    item.classList.add('global-highlight');
+
+                    // Remove the highlight after 500ms so it looks like a pulse
+                    setTimeout(() => {
+                        item.classList.remove('global-highlight');
+                    }, 500);
+                });
+            });
+
+            hamberg
+            const burger = document.getElementById('hamburger');
+            const menu = document.getElementById('nav-menu');
+            const footer = document.querySelector('footer');
+
+            // Check if elements exist on the current page before adding the listener
+            if (burger && menu) {
+                burger.addEventListener('click', () => {
+                    menu.classList.toggle('active');
+                    if (footer) footer.classList.toggle('active');
+                });
+            }
+        </script>
+</body>
+
+</html>
